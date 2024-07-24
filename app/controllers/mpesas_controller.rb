@@ -3,8 +3,8 @@ class MpesasController < ApplicationController
     def stkpush
         phoneNumber = params[:phoneNumber]
         amount = params[:amount]
-    #   url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
-         url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+      url = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+        #  url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
         timestamp = "#{Time.now.strftime "%Y%m%d%H%M%S"}"
         business_short_code = ENV["MPESA_SHORTCODE"]
         password = Base64.strict_encode64("#{business_short_code}#{ENV["MPESA_PASSKEY"]}#{timestamp}")
@@ -121,8 +121,8 @@ class MpesasController < ApplicationController
     # stkquery
 
     def stkquery
-        url = "https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query"
-        # url = " https://api.safaricom.co.ke/mpesa/transactionstatus/v1/query"
+        # url = "https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query"
+        url = " https://api.safaricom.co.ke/mpesa/transactionstatus/v1/query"
         timestamp = "#{Time.now.strftime "%Y%m%d%H%M%S"}"
         business_short_code = ENV["MPESA_SHORTCODE"]
         password = Base64.strict_encode64("#{business_short_code}#{ENV["MPESA_PASSKEY"]}#{timestamp}")
@@ -162,9 +162,9 @@ class MpesasController < ApplicationController
     private
 
     def generate_access_token_request
-        @url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-        # @url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-        @consumer_key = ENV['MPESA_CONSUMER_KEY']
+        # @url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+        @url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+        @consumer_key = ENV['MPESA_CONSUMER_KEY'] 
         @consumer_secret = ENV['MPESA_CONSUMER_SECRET']
         @userpass = Base64::strict_encode64("#{@consumer_key}:#{@consumer_secret}")
         headers = {
